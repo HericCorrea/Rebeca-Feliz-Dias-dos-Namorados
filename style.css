@@ -1,0 +1,170 @@
+<style>
+  body {
+    background: url('girasol.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 15px;
+    position: relative;
+  }
+
+  h1 {
+    color: #dfac31;
+    text-align: center;
+    font-size: 2em;
+  }
+
+  #carousel img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #dfac31;
+  }
+
+  blockquote {
+    font-style: italic;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.2em;
+  }
+
+  .video {
+    margin-top: 30px;
+  }
+
+  .heart {
+    text-align: center;
+    font-size: 2em;
+    animation: pulse 1.5s infinite;
+    color: #dfac31;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+
+  .flores, .flores2 {
+    font-size: 2em;
+    animation: flutuar 4s ease-in-out infinite alternate;
+    position: absolute;
+  }
+
+  .flores {
+    top: 10px;
+    left: 10px;
+  }
+
+  .flores2 {
+    bottom: 10px;
+    right: 10px;
+  }
+
+  @keyframes flutuar {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-20px); }
+  }
+
+  .btn {
+    display: block;
+    margin: 20px auto;
+    background-color: #dfac31;
+    color: #000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1em;
+    cursor: pointer;
+  }
+
+  .carta, .galeria, .mensagem-form {
+    display: none;
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  .galeria img {
+    width: 30%;
+    margin: 5px;
+    border-radius: 10px;
+  }
+
+  .mensagem-form textarea {
+    width: 100%;
+    height: 80px;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1em;
+  }
+
+  .mensagem-form button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #dfac31;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .estrelas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .estrela {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    width: 2px;
+    height: 2px;
+    animation: piscar 2s infinite;
+  }
+
+  @keyframes piscar {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+
+  /* Avião com rotação + flutuação */
+  .aviao {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 80px;
+    z-index: 5;
+    animation: girarEflutuar 5s ease-in-out infinite;
+    opacity: 0.9;
+  }
+
+  @keyframes girarEflutuar {
+    0% {
+      transform: rotate(0deg) translateY(0);
+    }
+    50% {
+      transform: rotate(180deg) translateY(-10px);
+    }
+    100% {
+      transform: rotate(360deg) translateY(0);
+    }
+  }
+</style>
+<img src="aviao.png" alt="Avião girando" class="aviao" />

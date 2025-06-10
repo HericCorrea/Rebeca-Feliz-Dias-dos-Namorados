@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nosso Amor 💖</title>
+  <style>
+    body {
+      background: url('girasol.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 20px;
+      color: #fff;
+      text-shadow: 1px 1px 2px #000;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 15px;
+      position: relative;
+      z-index: 1;
+    }
+    h1 {
+      color: #dfac31;
+      text-align: center;
+      font-size: 2em;
+    }
+    #carousel img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #dfac31;
+    }
+    blockquote {
+      font-style: italic;
+      margin-top: 20px;
+      text-align: center;
+      font-size: 1.2em;
+    }
+    .video {
+      margin-top: 30px;
+    }
+    .heart {
+      text-align: center;
+      font-size: 2em;
+      animation: pulse 1.5s infinite;
+      color: #dfac31;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    .flores, .flores2 {
+      font-size: 2em;
+      animation: flutuar 4s ease-in-out infinite alternate;
+      position: absolute;
+    }
+    .flores {
+      top: 10px;
+      left: 10px;
+    }
+    .flores2 {
+      bottom: 10px;
+      right: 10px;
+    }
+    @keyframes flutuar {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-20px); }
+    }
+    .btn {
+      display: block;
+      margin: 20px auto;
+      background-color: #dfac31;
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    .carta, .galeria, .mensagem-form, .jogo-memoria {
+      display: none;
+      margin-top: 20px;
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .galeria {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .galeria img {
+      width: 35%;
+      margin: 5px;
+      border-radius: 10px;
+    }
+    .mensagem-form textarea {
+      width: 100%;
+      height: 80px;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 1em;
+    }
+    .mensagem-form button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #dfac31;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .estrelas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .estrela {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      width: 2px;
+      height: 2px;
+      animation: piscar 2s infinite;
+    }
+    @keyframes piscar {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+
+    /* Avião girando e flutuando no canto direito */
+    .aviao {
+      position: fixed;
+      bottom: 40px;
+      right: 30px;
+      width: 120px;
+      z-index: 2;
+      animation: girarEflutuar 6s infinite ease-in-out;
+      opacity: 0.9;
+    }
+
+    @keyframes girarEflutuar {
+      0% {
+        transform: rotate(0deg) translateY(0);
+      }
+      50% {
+        transform: rotate(180deg) translateY(-10px);
+      }
+      100% {
+        transform: rotate(360deg) translateY(0);
+      }
+    }
+
+    /* Estilo das cartas do jogo de memória */
+    .carta-memoria {
+      background-color: #dfac31;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2.5em;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      height: 70px;
+      width: 70px;
+    }
+  </style>
+</head>
+<body>
+  <div class="estrelas" id="estrelas"></div>
+
+  <!-- Avião girando no canto direito -->
+  <img src="aviao.png" alt="Avião girando" class="aviao" />
+
+  <div class="container">
+    <div class="flores">🌻🌼🌸</div>
+    <div class="flores2">🌹🌷💐</div>
+    <h1>Feliz Dia dos Namorados, meu amor! 💘</h1>
+    <div id="carousel">
+      <img id="fotoAtual" src="foto1.jpg" alt="nossa foto" />
+    </div>
+    <p class="heart">💛</p>
+    <p style="text-align:center">Estamos juntos há <span id="contador"></span>! 🥰</p>
+    <blockquote>
+      <p id="frase"></p>
+    </blockquote>
+
+    <button class="btn" onclick="mostrarCarta()">💌 Ler Carta de Amor</button>
+    <div class="carta" id="carta">
+      <p>Amor, você é tudo pra mim. Cada dia ao seu lado é um presente que eu quero guardar para sempre no meu coração. Obrigado por me fazer tão feliz! 💖</p>
+    </div>
+
+    <button class="btn" onclick="mostrarGaleria()">📸 Ver mais fotos</button>
+    <div class="galeria" id="galeria">
+      <img src="foto1.jpg" alt="foto"/>
+      <img src="foto2.jpg" alt="foto"/>
+      <img src="foto3.jpg" alt="foto"/>
+      <img src="foto4.jpg" alt="foto"/>
+    </div>
+
+    <button class="btn" onclick="mostrarMensagem()">📝 Mandar uma mensagem de resposta</button>
+    <div class="mensagem-form" id="mensagem">
+      <textarea placeholder="Escreva algo bonito aqui..."></textarea>
+      <button onclick="enviarMensagem()">Enviar 💌</button>
+    </div>
+
+    <!-- Botão para abrir o mini jogo -->
+    <button class="btn" onclick="mostrarJogo()">🎮 Jogar o Mini Jogo do Amor</button>
+
+    <!-- Área do jogo (inicialmente escondida) -->
+    <div class="jogo-memoria" id="jogoMemoria" style="display:none; text-align: center;">
+      <p style="font-size:1.3em; margin-bottom: 15px; color:#dfac31;">Encontre todos os pares para ganhar! 💖</p>
+      <div id="tabuleiro" style="display: grid; grid-template-columns: repeat(4, 70px); grid-gap: 10px; justify-content:center;"></div>
+      <div id="resultado" style="margin-top: 20px; font-size: 1.2em; color: #dfac31;"></div>
+      <div id="fotoFinal" style="display:none; margin-top: 20px;">
+        <img src="foto-especial.jpg" alt="Eu te amo" style="width: 100%; max-width: 350px; border-radius: 15px; box-shadow: 0 0 20px #dfac31;" />
+        <h2 style="color:#dfac31; margin-top:10px;">Eu te amo! 💘</h2>
+      </div>
+      <button class="btn" onclick="reiniciarJogo()" style="margin-top: 20px;">Jogar Novamente</button>
+    </div>
+
+    <div class="video">
+      <audio id="audio" autoplay loop>
+        <source src="jorgeemateus.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+      </audio>
+    </div>
+  </div>
+
+  <script>
+    const fotos = ["foto1.jpg", "gif1.gif", "foto2.jpg", "gif2.gif","foto3.jpg", "gif3.gif", "foto4.jpg","gif4.gif"];
+    let indexAtual = 0;
+
+    function mostrarFoto() {
+      document.getElementById("fotoAtual").src = fotos[indexAtual];
+    }
+
+    function avancarFoto() {
+      indexAtual = (indexAtual + 1) % fotos.length;
+      mostrarFoto();
+    }
+
+    setInterval(avancarFoto, 3000);
+
+    function atualizarContador() {
+      const inicio = new Date("2023-11-20T00:00:00");
+      const agora = new Date();
+      const diff = agora - inicio;
+      const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+      document.getElementById("contador").textContent = dias + " dias juntos";
+    }
+
+    // Defina a data do começo do relacionamento aqui (ano, mês-1, dia, hora, min, seg)
+  const dataInicio = new Date(2023, 11-1, 20, 0, 0, 0); // Exemplo: 15 jan 2022
+
+  function atualizarCronometro() {
+    const agora = new Date();
+    const diff = agora - dataInicio; // diferença em milissegundos
+
+    const segundos = Math.floor(diff / 1000) % 60;
+    const minutos = Math.floor(diff / (1000 * 60)) % 60;
+    const horas = Math.floor(diff / (1000 * 60 * 60)) % 24;
+    const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+  // Formata para exibir com 2 dígitos
+  const formatoTempo = `${dias}d ${String(horas).padStart(2,'0')}h:${String(minutos).padStart(2,'0')}m:${String(segundos).padStart(2,'0')}s`;
+
+  document.getElementById('contador').textContent = formatoTempo;
+}
+
+// Atualiza a cada segundo
+setInterval(atualizarCronometro, 1000);
+atualizarCronometro(); // Chama logo no carregamento para não esperar 1s
+
+    const frases = [
+      "Você é meu sol nos dias nublados.",
+      "Cada momento com você é eterno.",
+      "Nosso amor é a melhor história que já vivi.",
+      "Com você, tudo faz sentido.",
+      "Te amo hoje e sempre."
+    ];
+
+    let fraseIndex = 0;
+    function mostrarFrase() {
+      document.getElementById("frase").textContent = frases[fraseIndex];
+      fraseIndex = (fraseIndex + 1) % frases.length;
+    }
+    mostrarFrase();
+    setInterval(mostrarFrase, 5000);
+
+    function mostrarCarta() {
+      const carta = document.getElementById("carta");
+      carta.style.display = carta.style.display === "block" ? "none" : "block";
+    }
+
+    function mostrarGaleria() {
+      const galeria = document.getElementById("galeria");
+      galeria.style.display = galeria.style.display === "flex" || galeria.style.display === "block" ? "none" : "flex";
+    }
+
+    function mostrarMensagem() {
+      const msg = document.getElementById("mensagem");
+      msg.style.display = msg.style.display === "block" ? "none" : "block";
+    }
+
+    function enviarMensagem() {
+      const textarea = document.querySelector("#mensagem textarea");
+      if (textarea.value.trim() === "") {
+        alert("Escreva algo para enviar!");
+        return;
+      }
+      alert("Mensagem enviada com sucesso! Obrigado pelo carinho! 💖");
+      textarea.value = "";
+      mostrarMensagem();
+    }
+
+    // Jogo da Memória
+    const cartasValores = ["💛", "💛", "🌹", "🌹", "🌸", "🌸", "🌼", "🌼"];
+    let cartasSelecionadas = [];
+    let cartasEncontradas = 0;
+    const tabuleiro = document.getElementById("tabuleiro");
+    const resultado = document.getElementById("resultado");
+    const fotoFinal = document.getElementById("fotoFinal");
+
+    function embaralharCartas() {
+      for (let i = cartasValores.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cartasValores[i], cartasValores[j]] = [cartasValores[j], cartasValores[i]];
+      }
+    }
+
+    function criarTabuleiro() {
+      tabuleiro.innerHTML = "";
+      cartasSelecionadas = [];
+      cartasEncontradas = 0;
+      resultado.textContent = "";
+      fotoFinal.style.display = "none";
+
+      cartasValores.forEach((simbolo, index) => {
+        const carta = document.createElement("div");
+        carta.classList.add("carta-memoria");
+        carta.dataset.simbolo = simbolo;
+        carta.textContent = "?";
+        carta.addEventListener("click", virarCarta);
+        tabuleiro.appendChild(carta);
+      });
+    }
+
+    function virarCarta() {
+      if (cartasSelecionadas.length === 2 || this.classList.contains("achou") || cartasSelecionadas.includes(this)) return;
+
+      this.textContent = this.dataset.simbolo;
+      cartasSelecionadas.push(this);
+
+      if (cartasSelecionadas.length === 2) {
+        if (cartasSelecionadas[0].dataset.simbolo === cartasSelecionadas[1].dataset.simbolo) {
+          cartasSelecionadas.forEach(carta => {
+            carta.classList.add("achou");
+            carta.style.backgroundColor = "#dfac31";
+          });
+          cartasEncontradas += 2;
+          resultado.textContent = `Você encontrou ${cartasEncontradas / 2} pares!`;
+
+          if (cartasEncontradas === cartasValores.length) {
+            resultado.textContent = "Parabéns! Você ganhou o jogo! 💖";
+            fotoFinal.style.display = "block";
+          }
+          cartasSelecionadas = [];
+        } else {
+          setTimeout(() => {
+            cartasSelecionadas.forEach(carta => {
+              carta.textContent = "?";
+            });
+            cartasSelecionadas = [];
+          }, 1000);
+        }
+      }
+    }
+
+    function mostrarJogo() {
+      const jogo = document.getElementById('jogoMemoria');
+      jogo.style.display = 'block';
+      embaralharCartas();
+      criarTabuleiro();
+      window.scrollTo({ top: jogo.offsetTop, behavior: 'smooth' });
+
+      // Garantir que o áudio continue tocando após mostrar o jogo
+      const audio = document.getElementById("audio");
+      audio.play().catch(() => {
+        // Caso o autoplay seja bloqueado, já tem o evento de clique no carregamento para tentar tocar o áudio
+      });
+    }
+
+    function reiniciarJogo() {
+      criarTabuleiro();
+      resultado.textContent = "";
+      fotoFinal.style.display = "none";
+    }
+
+    // Garantir que o áudio toque após interação do usuário
+    window.onload = function() {
+      const audio = document.getElementById("audio");
+      audio.play().catch(() => {
+        document.body.addEventListener("click", () => {
+          audio.play();
+        }, { once: true });
+      });
+    };
+
+    // Criar estrelas
+    const estrelasContainer = document.getElementById("estrelas");
+    for(let i=0; i<100; i++) {
+      const estrela = document.createElement("div");
+      estrela.classList.add("estrela");
+      estrela.style.top = Math.random() * 100 + "vh";
+      estrela.style.left = Math.random() * 100 + "vw";
+      estrela.style.width = estrela.style.height = (Math.random() * 2 + 1) + "px";
+      estrela.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      estrelasContainer.appendChild(estrela);
+    }
+  </script>
+</body>
+</html>
