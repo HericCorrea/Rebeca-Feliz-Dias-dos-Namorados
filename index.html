@@ -222,10 +222,12 @@ Eu te amo. Obrigado por me fazer tão feliz!💖</p>
     </div>
 
     <button class="btn" onclick="mostrarMensagem()">📝 Mandar uma mensagem de resposta</button>
-    <div class="mensagem-form" id="mensagem">
-      <textarea placeholder="Escreva algo bonito aqui..."></textarea>
-      <button onclick="enviarMensagem()">Enviar 💌</button>
-    </div>
+	<div class="mensagem-form" id="mensagem">
+		<textarea placeholder="Escreva algo bonito aqui..."></textarea>
+		<button onclick="enviarMensagem()">Enviar 💌</button>
+		<button onclick="apagarMensagens()" style="margin-top: 10px; background-color: #c0392b;">🗑️ Apagar Mensagens</button>
+		<div id="mensagensSalvas" style="margin-top:15px; max-height:150px; overflow-y:auto; background:rgba(255,255,255,0.1); border-radius:8px; padding:8px; font-size:0.9em;"></div>
+	</div>
 
     <!-- Botão para abrir o mini jogo -->
     <button class="btn" onclick="mostrarJogo()">🎮 Jogar o Mini Jogo do Amor</button>
@@ -336,7 +338,10 @@ atualizarCronometro(); // Chama logo no carregamento para não esperar 1s
       textarea.value = "";
       mostrarMensagem();
     }
-
+	function apagarMensagens() {
+ 	 const mensagensDiv = document.getElementById("mensagensSalvas");
+ 	 mensagensDiv.innerHTML = "";
+}
     // Jogo da Memória
     const cartasValores = ["💛", "💛", "🌹", "🌹", "🌸", "🌸", "🌼", "🌼"];
     let cartasSelecionadas = [];
@@ -441,6 +446,74 @@ atualizarCronometro(); // Chama logo no carregamento para não esperar 1s
       estrela.style.animationDuration = (Math.random() * 3 + 2) + "s";
       estrelasContainer.appendChild(estrela);
     }
+	
+	function carregarMensagens() {
+  const container = document.getElementById("mensagensSalvas");
+  container.innerHTML = "";
+  const mensagens = JSON.parse(localStorage.getItem("mensagensAmor") || "[]");
+  if(mensagens.length === 0) {
+    container.textContent = "Nenhuma mensagem salva ainda.";
+    return;
+  }
+  mensagens.forEach((msg, i) => {
+    const p = document.createElement("p");
+    p.textContent = `• ${msg}`;
+    container.appendChild(p);
+  });
+
+}
+
+function enviarMensagem() {
+  const textarea = document.querySelector("#mensagem textarea");
+  const mensagensContainer = document.getElementById("mensagensSalvas");
+
+  if (textarea.value.trim() === "") {
+    alert("Escreva algo para enviar!");
+    return;
+  }
+
+  // Criar uma nova div para a mensagem
+  const novaMensagem = document.createElement("div");
+  novaMensagem.style.marginBottom = "10px";
+  novaMensagem.style.position = "relative";
+
+  // Criar o texto da mensagem
+  const texto = document.createElement("span");
+  texto.textContent = textarea.value;
+
+  // Criar o botão de apagar
+  const botaoApagar = document.createElement("button");
+  botaoApagar.textContent = "🗑️";
+  botaoApagar.style.position = "absolute";
+  botaoApagar.style.right = "0";
+  botaoApagar.style.top = "0";
+  botaoApagar.style.background = "transparent";
+  botaoApagar.style.border = "none";
+  botaoApagar.style.color = "#fff";
+  botaoApagar.style.cursor = "pointer";
+  botaoApagar.style.fontSize = "1em";
+  botaoApagar.style.padding = "2px 6px";
+
+  botaoApagar.onclick = () => {
+    novaMensagem.remove();
+  };
+
+  // Adicionar elementos na nova div
+  novaMensagem.appendChild(texto);
+  novaMensagem.appendChild(botaoApagar);
+
+  // Adicionar no container de mensagens
+  mensagensContainer.appendChild(novaMensagem);
+
+  // Limpar textarea e esconder form
+  textarea.value = "";
+  mostrarMensagem();
+
+  alert("Mensagem enviada com sucesso! 💖");
+}
+
+// E logo depois, execute uma vez para carregar mensagens já salvas ao abrir a página:
+carregarMensagens();
   </script>
 </body>
 </html>
