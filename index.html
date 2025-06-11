@@ -329,18 +329,29 @@ atualizarCronometro(); // Chama logo no carregamento para não esperar 1s
     }
 
     function enviarMensagem() {
-      const textarea = document.querySelector("#mensagem textarea");
-      if (textarea.value.trim() === "") {
-        alert("Escreva algo para enviar!");
-        return;
-      }
-      alert("Mensagem enviada com sucesso! Obrigado pelo carinho! 💖");
-      textarea.value = "";
-      mostrarMensagem();
-    }
+ 	 const textarea = document.querySelector("#mensagem textarea");
+  	const texto = textarea.value.trim();
+  	if (texto === "") {
+    	alert("Escreva algo para enviar!");
+   	 return;
+  }
+
+  	// Recupera mensagens do localStorage
+ 	 let mensagens = JSON.parse(localStorage.getItem("mensagens")) || [];
+  	mensagens.push(texto);
+
+  // Salva novamente no localStorage
+  localStorage.setItem("mensagens", JSON.stringify(mensagens));
+
+  // Atualiza a exibição
+  mostrarMensagensSalvas();
+
+  alert("Mensagem enviada com sucesso! Obrigado pelo carinho! 💖");
+  textarea.value = "";
+}
 	function apagarMensagens() {
- 	 const mensagensDiv = document.getElementById("mensagensSalvas");
- 	 mensagensDiv.innerHTML = "";
+  localStorage.removeItem("mensagens");
+  document.getElementById("mensagensSalvas").innerHTML = "";
 }
     // Jogo da Memória
     const cartasValores = ["💛", "💛", "🌹", "🌹", "🌸", "🌸", "🌼", "🌼"];
@@ -510,6 +521,12 @@ function enviarMensagem() {
   mostrarMensagem();
 
   alert("Mensagem enviada com sucesso! 💖");
+}
+function mostrarMensagensSalvas() {
+  const mensagensDiv = document.getElementById("mensagensSalvas");
+  const mensagens = JSON.parse(localStorage.getItem("mensagens")) || [];
+
+  mensagensDiv.innerHTML = mensagens.map(msg => `<p>💌 ${msg}</p>`).join("");
 }
 
 // E logo depois, execute uma vez para carregar mensagens já salvas ao abrir a página:
